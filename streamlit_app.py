@@ -2,7 +2,7 @@ import io
 import requests
 import streamlit as st
 
-API_DEFAULT = "http://localhost:8000/api"
+API_DEFAULT = "https://binal-scribbly-niesha.ngrok-free.dev/api"
 
 
 def api_post_upload(api_base: str, file_bytes: bytes, filename: str):
