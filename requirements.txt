@@ -1,1 +1,13 @@
-streamlit[pdf]
+fastapi==0.100.0
+uvicorn[standard]==0.40.0
+sqlalchemy
+pydantic
+llama-index
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+llama-index-vector-stores-qdrant
+qdrant-client
+torch
+sentence-transformers
+mysql-connector-python
+httpx
