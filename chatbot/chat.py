@@ -4,7 +4,7 @@ from datetime import datetime
 
 st.title("💬 Chatbot")
 
-API_URL = "http://10.102.10.9:8000"
+API_URL = "http://chatbot.saltechsystems.com:8000"
 
 if not st.session_state.get("username"):
     st.error("Please log in first")
