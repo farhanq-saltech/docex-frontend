@@ -11,7 +11,7 @@ if not st.session_state.get("username"):
     st.error("Please log in first")
     st.stop()
 
-API_URL = "http://10.102.10.9:8000"
+API_URL = "http://chatbot.saltechsystems.com:8000"
 OLLAMA_URL = "http://localhost:11434"
 load_dotenv()
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
