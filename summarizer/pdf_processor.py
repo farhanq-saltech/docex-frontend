@@ -2,7 +2,7 @@ import io
 import requests
 import streamlit as st
 
-API_DEFAULT = "http://10.102.10.9:8000/api"
+API_DEFAULT = "chatbot.saltechsystems.com:8000/api"
 
 
 def api_post_upload(api_base: str, file_bytes: bytes, filename: str):
