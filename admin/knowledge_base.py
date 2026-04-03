@@ -8,7 +8,7 @@ if not st.session_state.get("username"):
     st.error("Please log in first")
     st.stop()
 
-API_URL = "chatbot.saltechsystem.com:8000"
+API_URL = "chatbot.saltechsystems.com:8000"
 
 def get_knowledge_base_files():
     try:
