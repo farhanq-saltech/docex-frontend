@@ -89,15 +89,14 @@ def create_session_on_first_message():
         return None
 
 def deduplicate_sources(sources):
-    """Remove duplicate sources, keeping the highest score for each file"""
     seen = {}
     for source in sources:
         file_name = source.get('file_name', 'Unknown')
         score = source.get('score', 0)
-        
+
         if file_name not in seen or score > seen[file_name]['score']:
             seen[file_name] = source
-    
+
     return list(seen.values())
 
 if not st.session_state.user_id:
@@ -123,13 +122,13 @@ else:
 
 with st.sidebar:
     st.divider()
-    
+
     st.markdown("### Chat Management")
     if st.button("➕ New Chat", use_container_width=True):
         create_new_session()
-    
+
     st.markdown("### Conversations")
-    
+
     if st.session_state.chat_sessions:
         for session in st.session_state.chat_sessions:
             if st.button(
@@ -145,8 +144,7 @@ with st.sidebar:
 for i, message in enumerate(st.session_state.messages):
     with st.chat_message(message["role"]):
         st.markdown(message["content"], unsafe_allow_html=True)
-        
-        # Display sources if they exist for this message
+
         if message["role"] == "assistant" and i in st.session_state.message_sources:
             sources = st.session_state.message_sources[i]
             if sources:
@@ -166,12 +164,12 @@ if prompt := st.chat_input("Ask a question about your documents..."):
         if not session_id:
             st.error("Could not create chat session")
             st.stop()
-    
+
     st.session_state.messages.append({"role": "user", "content": prompt})
-    
+
     with st.chat_message("user"):
         st.markdown(prompt, unsafe_allow_html=True)
-    
+
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
@@ -183,15 +181,14 @@ if prompt := st.chat_input("Ask a question about your documents..."):
                     },
                     timeout=60
                 )
-                
+
                 if response.ok:
                     data = response.json()
                     ai_response = data.get("response", "No response received")
                     sources = data.get("sources", [])
-                    
+
                     st.markdown(ai_response, unsafe_allow_html=True)
-                    
-                    # Display sources expandable section (deduplicated)
+
                     if sources:
                         sources = deduplicate_sources(sources)
                         with st.expander("📚 View Sources"):
@@ -214,7 +211,7 @@ if prompt := st.chat_input("Ask a question about your documents..."):
                 ai_response = f"Error: {str(e)}"
                 sources = []
                 st.error(ai_response)
-    
+
     if 'ai_response' in locals():
         message_index = len(st.session_state.messages)
         st.session_state.messages.append({"role": "assistant", "content": ai_response})
@@ -222,3 +219,4 @@ if prompt := st.chat_input("Ask a question about your documents..."):
             sources = deduplicate_sources(sources)
             st.session_state.message_sources[message_index] = sources
         load_user_sessions()
+
